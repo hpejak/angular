@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'jarvis';
+  fullDate: Date = new Date();
+
+  dateDay: number = this.fullDate.getUTCDate();
+  dateMonth: string = this.fullDate.toLocaleDateString('HR');
+
+
 }
