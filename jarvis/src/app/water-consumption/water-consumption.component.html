@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-lg-6">
+    <label for="inputWaterConsumptionSum" id="labelWaterConsumptionSum">Water Consumption Sum</label>
+    <input type="number" class="form-control" id="inputWaterConsumptionSum" #inputWaterConsumptionSum>
+  </div>
+  <div class="col-lg-6">
+    <label for="inputWaterConsumptionBill" id="labelWaterConsumptionBill">Water Consumption Bill</label>
+    <input type="text" class="form-control" id="inputWaterConsumptionBill" #inputWaterConsumptionBill>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-4">
+    <label for="inputWaterMeter1" id="labelWaterMeter1">Water Meter</label>
+    <input type="number" class="form-control" id="inputWaterMeter1" #inputWaterMeter1>
+  </div>
+
+  <div class="col-lg-4">
+    <label for="inputWaterMeter2" id="labelWaterMeter2">Water Meter</label>
+    <input type="number" class="form-control" id="inputWaterMeter2" #inputWaterMeter2>
+  </div>
+
+  <div class="col-lg-4">
+    <label for="inputWaterMeter3" id="labelWaterMeter3">Water Meter</label>
+    <input type="number" class="form-control" id="inputWaterMeter3" #inputWaterMeter3>
+  </div>
+
+</div>
+
+<div class="row" id="rowBtnCalculate">
+  <div class="col-lg-2">
+    <button class="btn btn-dark" id="btnCalculate" (click)="calculateBillSum()" >Calculate</button>
+  </div>
+</div>
+
+
