@@ -3,10 +3,10 @@
     <h3>{{dateMonth}}</h3>
   <div class="row">
     <div class="col-lg-6">
-      <app-water-consumption></app-water-consumption>
+      <app-water-consumption (calculateWaterBill)="onWaterBillCalculation($event)"></app-water-consumption>
     </div>
     <div class="col-lg-6">
-      <app-water-consumption-view></app-water-consumption-view>
+      <app-water-consumption-view [waterBillCalculatedValue]="waterBillCalculatedValue"></app-water-consumption-view>
     </div>
   </div>
 </div>

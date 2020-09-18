@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-water-consumption-view',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./water-consumption-view.component.css']
 })
 export class WaterConsumptionViewComponent implements OnInit {
+  @Input()
+  waterBillCalculatedValue: number;
 
   constructor() { }
 

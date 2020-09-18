@@ -12,5 +12,10 @@ export class AppComponent {
   dateDay: number = this.fullDate.getUTCDate();
   dateMonth: string = this.fullDate.toLocaleDateString('HR');
 
+  waterBillCalculatedValue = 0;
 
+  onWaterBillCalculation(billData: {waterConsumption: number, cubicPrice: number, lumpSum: number}): void {
+    this.waterBillCalculatedValue = (billData.waterConsumption * billData.cubicPrice) + billData.lumpSum;
+  }
 }
+

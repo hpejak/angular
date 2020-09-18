@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-water-consumption',
@@ -16,6 +16,9 @@ export class WaterConsumptionComponent implements OnInit {
   @ViewChild('inputWaterConsumptionSum', {static: true}) inputWaterConsumptionSum: ElementRef;
   @ViewChild('inputWaterConsumptionBill', {static: true}) inputWaterConsumptionBill: ElementRef;
 
+  @Output()
+  calculateWaterBill = new EventEmitter<{waterConsumption: number, cubicPrice: number, lumpSum: number}>();
+
   inputWaterMeter1: HTMLInputElement;
   inputWaterMeter2: HTMLInputElement;
   inputWaterMeter3: HTMLInputElement;
@@ -26,8 +29,16 @@ export class WaterConsumptionComponent implements OnInit {
 
   calculateBillSum(): void {
     if (this.checkSumAndBill()) {
-      this.outputValue = (this.inputWaterConsumptionBill.nativeElement.value * this.cubicPrice) + this.lumpSum;
+      this.onCalculateBillSum();
     }
+  }
+
+  onCalculateBillSum(): void{
+    this.calculateWaterBill.emit({
+      waterConsumption: this.inputWaterConsumptionBill.nativeElement.value,
+      cubicPrice: this.cubicPrice,
+      lumpSum: this.lumpSum
+    });
   }
 
   ngOnInit(): void {
