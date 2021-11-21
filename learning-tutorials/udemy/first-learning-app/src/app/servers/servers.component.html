@@ -1,0 +1,45 @@
+<label>Server Name</label>
+<!--<input type="text" class="form-control" (input)="onUpdateServerName($event)"/>-->
+<input type="text" class="form-control" [(ngModel)]="serverName"/>
+<!--<p>{{serverName}}</p>-->
+
+<!--<label>Username</label>-->
+<!--<input type="text" class="form-control" [(ngModel)]="username">-->
+
+<!--<p>{{username}}</p>-->
+<br/>
+<button
+  class="btn btn-success"
+  [disabled]="isUsernameEmpty()"
+  (click)="resetUsername()">Add Username
+</button>
+
+<button
+  class="btn btn-primary"
+  [disabled]="!allowNewServer"
+  (click)="onCreateServer()">Add Server
+</button>
+
+<button
+  class="btn btn-warning"
+  (click)="displayDetails()">Display Details
+</button>
+<!--<p [innerText]="allowNewServer"></p>-->
+<!--<p>{{serverCreationStatus}}</p>-->
+
+<!--<p [hidden]="detailsShown">Details Paragraph</p>-->
+<p *ngIf="detailsShown">Details Paragraph</p>
+
+<div
+  *ngFor="let detailRecord of detailsLog; let k = index"
+  [ngStyle]="{backgroundColor: detailsColor(k)}"
+  [ngClass]="{whiteText: k>=5}">
+  {{detailRecord}}
+</div>
+
+<p *ngIf="serverCreated; else noServer">Server was created! Server name {{serverName}}</p>
+<ng-template #noServer>
+  <p>NO server was created!</p></ng-template>
+
+<app-server *ngFor="let server of servers"></app-server>
+
