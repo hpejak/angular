@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   serverElements = [{type: 'server', name: 'TestServer', content: 'Just a test'}];
 
-  onServerAdded(serverData: {serverName: string, serverContent: string}) {
+  onServerAdded(serverData: { serverName: string, serverContent: string }) {
     this.serverElements.push({
       type: 'server',
       name: serverData.serverName,
@@ -16,7 +16,7 @@ export class AppComponent {
     });
   }
 
-  onBlueprintAdded(bluePrintData: {serverName: string, serverContent: string}) {
+  onBlueprintAdded(bluePrintData: { serverName: string, serverContent: string }) {
     this.serverElements.push({
       type: 'blueprint',
       name: bluePrintData.serverName,
@@ -24,4 +24,7 @@ export class AppComponent {
     });
   }
 
+  onDestroyFirsElement() {
+    this.serverElements.splice(0, 1);
+  }
 }
