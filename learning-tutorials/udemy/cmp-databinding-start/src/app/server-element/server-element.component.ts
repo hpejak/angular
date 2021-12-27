@@ -2,11 +2,11 @@ import {
   AfterContentChecked,
   AfterContentInit, AfterViewChecked, AfterViewInit,
   Component,
-  DoCheck,
+  DoCheck, ElementRef,
   Input,
   OnChanges, OnDestroy,
   OnInit,
-  SimpleChanges,
+  SimpleChanges, ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 
@@ -27,6 +27,7 @@ export class ServerElementComponent implements OnInit,
 
   // tslint:disable-next-line:no-input-rename
   @Input('srvElement') element: {type: string, name: string, content: string};
+  @ViewChild('heading', {static: true}) header: ElementRef;
 
   constructor() {
     console.log('Server element is constructed');
@@ -38,6 +39,7 @@ export class ServerElementComponent implements OnInit,
 
   ngOnInit(): void {
     console.log('Server element is initialized');
+    console.log('Header Text: ' + this.header.nativeElement.textContent);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -62,6 +64,7 @@ export class ServerElementComponent implements OnInit,
 
   ngAfterViewInit(): void {
     console.log('After View Init in Server element');
+    console.log('Header Text: ' + this.header.nativeElement.textContent);
   }
 
 }
