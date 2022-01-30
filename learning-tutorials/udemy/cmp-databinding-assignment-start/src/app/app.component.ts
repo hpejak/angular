@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  oddNumbers: number[] = [];
+  evenNumbers: number[] = [];
+
+  onIntervalFired(event: number) {
+    if (event % 2 === 0) {
+      this.evenNumbers.push(event);
+    } else {
+      this.oddNumbers.push(event);
+    }
+  }
 }
