@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {FinanceCat} from "../finance-cat.model";
 
 @Component({
   selector: 'app-finance-income-cat',
@@ -7,18 +8,30 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./finance-income-cat.component.css']
 })
 export class FinanceIncomeCatComponent implements OnInit {
-  incomeName: string = '';
-  incomeDescription: string = '';
+
+  incomeCatName: string = '';
+  incomeCatDescription: string = '';
+  incomeCategoriesList: FinanceCat[] = [];
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.getIncomeCat()
   }
 
-  onIncomeAdd() {
+  getIncomeCat(){
+    this.http.get('http://pejak.ddns.net:10080/getIncomeCategories/').subscribe({
+      next: (data:any) => {
+        console.log(data);
+        // this.incomeCategoriesList = data;
+      }
+    })
+  }
+
+  onIncomeCatAdd() {
     // Sent Post to Database
     this.http.post('http://localhost:10080/addIncomeCat/',
-      {name: this.incomeName, description: this.incomeDescription}
+      {name: this.incomeCatName, description: this.incomeCatDescription}
     ).subscribe({
       next: (data: any) => {
         console.log(data);
