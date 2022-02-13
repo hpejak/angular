@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-database-connections',
@@ -18,14 +18,11 @@ export class DatabaseConnectionsComponent implements OnInit {
   }
 
   onCreatePost() {
-    let headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
-
 
     // Sent Post to Database
-    this.http.post('http://192.168.1.240:10080/addPurpose/',
-      {name: this.nameInput, value: this.valueInput}, {
-        headers: headers
-      })
+    this.http.post('http://192.168.1.240:10080/setPurpose/',
+      {name: this.nameInput, value: this.valueInput}
+    )
       .subscribe((responseData: any) => {
         console.log(responseData);
       });
