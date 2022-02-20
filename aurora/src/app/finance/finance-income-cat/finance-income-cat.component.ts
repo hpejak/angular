@@ -17,20 +17,9 @@ export class FinanceIncomeCatComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
-    this.getIncomeCat()
+  ngOnInit() {
   }
 
-  getIncomeCat(){
-
-    this.http.get('http://pejak.ddns.net:10080/getIncomeCategories/',).subscribe({
-      next: (data:any) => {
-        console.log(data);
-        this.incomeCategoriesList = data;
-        this.incomeCategoriesListener.emit(this.incomeCategoriesList)
-      }
-    })
-  }
 
   onIncomeCatAdd() {
     // Sent Post to Database

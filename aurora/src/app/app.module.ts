@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -7,9 +7,16 @@ import {NavigationComponent} from './navigation/navigation.component';
 import {HttpClientModule} from "@angular/common/http";
 import {DatabaseConnectionsComponent} from './database-connections/database-connections.component';
 import {FormsModule} from "@angular/forms";
-import { FinanceComponent } from './finance/finance.component';
-import { FinanceIncomeComponent } from './finance/finance-income/finance-income.component';
-import { FinanceIncomeCatComponent } from './finance/finance-income-cat/finance-income-cat.component';
+import {FinanceComponent} from './finance/finance.component';
+import {FinanceIncomeComponent} from './finance/finance-income/finance-income.component';
+import {FinanceIncomeCatComponent} from './finance/finance-income-cat/finance-income-cat.component';
+import {FinanceIncomeCatService} from "./finance/finance-income-cat.service";
+
+const appInitializerFn = (financeIncomeCatService: FinanceIncomeCatService) => {
+  return () => {
+    return financeIncomeCatService.getIncomeData();
+  };
+};
 
 @NgModule({
   declarations: [
@@ -26,7 +33,12 @@ import { FinanceIncomeCatComponent } from './finance/finance-income-cat/finance-
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [FinanceIncomeCatService, {
+    provide: APP_INITIALIZER,
+    useFactory: appInitializerFn,
+    multi: true,
+    deps: [FinanceIncomeCatService]
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

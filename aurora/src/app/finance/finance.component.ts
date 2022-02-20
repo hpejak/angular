@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {FinanceCat} from "./finance-cat.model";
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-finance',
@@ -8,13 +7,11 @@ import {FinanceCat} from "./finance-cat.model";
 })
 export class FinanceComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor() {
   }
 
-  incomeCategoryPopulate(financeCategories: FinanceCat[]){
-    console.log(financeCategories)
+  ngOnInit(): void {
   }
 
 }
