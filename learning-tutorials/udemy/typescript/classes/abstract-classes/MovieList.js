@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Drama_1 = require("./Drama");
+const Comedy_1 = require("./Comedy");
+let interstellar = new Drama_1.Drama(10, "Interstellar");
+let ace_ventura = new Comedy_1.Comedy(7, "Ace Ventura");
+let movies = [];
+movies.push(interstellar);
+movies.push(ace_ventura);
+movies.forEach(movie => console.log(`${movie.getInfo()}, For age of: ${movie.ageAppropriate()} \n`));
