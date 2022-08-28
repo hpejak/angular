@@ -9,7 +9,7 @@ import {map} from "rxjs/operators";
 })
 export class ProductService {
 
-  private baseUrl = 'http://pejak.ddns.net:18080/api/products';
+  private baseUrl = 'http://hrvojep.ddns.net:18090/api/products';
 
   constructor(private httpClient: HttpClient) {
   }
