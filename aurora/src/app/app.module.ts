@@ -11,6 +11,15 @@ import {FinanceComponent} from './finance/finance.component';
 import {FinanceIncomeComponent} from './finance/finance-income/finance-income.component';
 import {FinanceIncomeCatComponent} from './finance/finance-income-cat/finance-income-cat.component';
 import {FinanceIncomeCatService} from "./finance/finance-income-cat.service";
+import {RouterModule, Routes} from "@angular/router";
+
+
+const routes: Routes = [
+  {path: 'finance', component: FinanceComponent},
+  {path: 'database', component: DatabaseConnectionsComponent},
+  {path: '', redirectTo:'/finance', pathMatch:'full'},
+  {path: '**', redirectTo:'/finance', pathMatch:'full'}
+];
 
 const appInitializerFn = (financeIncomeCatService: FinanceIncomeCatService) => {
   return () => {
@@ -28,6 +37,7 @@ const appInitializerFn = (financeIncomeCatService: FinanceIncomeCatService) => {
     FinanceIncomeCatComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
