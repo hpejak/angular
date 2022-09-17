@@ -1,0 +1,10 @@
+.aurora-banner {
+  padding-top: 50px;
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 2;
+}
+.aurora-banner-highlight {
+  font-weight: bold;
+}

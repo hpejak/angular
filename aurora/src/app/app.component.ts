@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'aurora';
-  description = 'Analyzing Uniting Reacting Organizing Representation Assistant';
+  description = 'Analyzing Unifying Responsive Organizing Representation Assistant';
 }
