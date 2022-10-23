@@ -12,20 +12,31 @@ import {FinanceIncomeComponent} from './finance/finance-income/finance-income.co
 import {FinanceIncomeCatComponent} from './finance/finance-income-cat/finance-income-cat.component';
 import {FinanceIncomeCatService} from "./finance/finance-income-cat.service";
 import {RouterModule, Routes} from "@angular/router";
-import { HomeComponent } from './home/home.component';
+import {HomeComponent} from './home/home.component';
+import {BenjaminComponent} from './benjamin/benjamin.component';
+import {BenjaminWeightComponent} from './benjamin/benjamin-weight/benjamin-weight.component';
+import {BenjaminWeightService} from "./benjamin/benjamin-weight/benjamin-weight.service";
 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'income', component: FinanceComponent},
   {path: 'database', component: DatabaseConnectionsComponent},
-  {path: '', redirectTo:'/home', pathMatch:'full'},
-  {path: '**', redirectTo:'/home', pathMatch:'full'}
+  {path: 'benjamin', component: BenjaminComponent},
+  {path: 'benjamin-weight', component: BenjaminWeightComponent},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
 
 const appInitializerFn = (financeIncomeCatService: FinanceIncomeCatService) => {
   return () => {
     return financeIncomeCatService.getIncomeData();
+  };
+};
+
+const benjaminWeightInit = (benjaminWeightService: BenjaminWeightService) => {
+  return () => {
+    return benjaminWeightService.getBenjaminWeights();
   };
 };
 
@@ -37,7 +48,9 @@ const appInitializerFn = (financeIncomeCatService: FinanceIncomeCatService) => {
     FinanceComponent,
     FinanceIncomeComponent,
     FinanceIncomeCatComponent,
-    HomeComponent
+    HomeComponent,
+    BenjaminComponent,
+    BenjaminWeightComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -51,6 +64,12 @@ const appInitializerFn = (financeIncomeCatService: FinanceIncomeCatService) => {
     useFactory: appInitializerFn,
     multi: true,
     deps: [FinanceIncomeCatService]
+  }, BenjaminWeightService, {
+    provide: APP_INITIALIZER,
+    useFactory:
+    benjaminWeightInit,
+    multi:true,
+    deps:[BenjaminWeightService]
   }],
   bootstrap: [AppComponent]
 })

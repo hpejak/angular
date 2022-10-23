@@ -15,7 +15,8 @@ export class FinanceIncomeCatComponent implements OnInit {
   incomeCatDescription: string = '';
   incomeCategoriesList: FinanceCat[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit() {
   }

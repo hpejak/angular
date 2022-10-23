@@ -7,24 +7,24 @@ export class FinanceIncomeCatService {
   private incomeCategoriesList: FinanceCat[] = [];
 
   constructor(private http: HttpClient) {
-    console.log('Finance Income Cat Constructor')
+    console.debug('Finance Income Cat Constructor')
     this.updateIncomeCat()
   }
 
 
-
   updateIncomeCat() {
-    console.log('Finance Income Cat update')
-    this.http.get('http://pejak.ddns.net:10080/getIncomeCategories/',).subscribe({
+    console.debug('Finance Income Cat update')
+    this.http.get('http://pejak.ddns.net:10080/getIncomeCategories/').subscribe({
       next: (data: any) => {
         this.incomeCategoriesList = data;
-        console.log('Data are here' + data);
+        console.debug('Finance data is here :');
+        console.debug(data);
       }
     })
   }
 
   getIncomeData() {
-    console.log('Finance Income Cat get')
+    console.debug('Finance Income Cat get')
     return this.incomeCategoriesList;
   }
 

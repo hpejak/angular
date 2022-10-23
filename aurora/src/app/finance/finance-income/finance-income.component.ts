@@ -17,14 +17,14 @@ export class FinanceIncomeComponent implements OnInit {
   incomeAmount: number = 0.00;
 
   constructor(private http: HttpClient, private financeIncomeCatService: FinanceIncomeCatService) {
-    console.log('Finance Income Constructor')
-
+    console.debug('Finance Income Constructor')
   }
 
   ngOnInit(): void {
-    console.log('Finance Income ngOnInit')
+    console.debug('Finance Income ngOnInit')
     this.financeCategories = this.financeIncomeCatService.getIncomeData();
-    console.log(this.financeCategories)
+    console.debug("Finance Income data: ")
+    console.debug(this.financeCategories)
   }
 
 

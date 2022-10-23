@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-12 align-self-center aurora-banner">
+    <p>Benjamin Weight</p>
+  </div>
+
+
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Date</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Weighting Scale</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let weight of weights">
+      <td>{{weight.id}}</td>
+      <td>{{weight.date}}</td>
+      <td>{{weight.weight}} g</td>
+      <td>{{weight.weighting_scale}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
