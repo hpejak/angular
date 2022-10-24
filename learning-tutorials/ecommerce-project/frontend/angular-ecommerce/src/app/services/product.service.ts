@@ -10,9 +10,9 @@ import {ProductCategory} from "../common/product-category";
 })
 export class ProductService {
 
-  private baseUrl = 'http://hrvojep.ddns.net:18090/api/products';
+  private baseUrl = 'http://pejak.ddns.net:18090/api/products';
 
-  private categoryUrl = 'http://hrvojep.ddns.net:18090/api/products-category';
+  private categoryUrl = 'http://pejak.ddns.net:18090/api/product-category';
 
   constructor(private httpClient: HttpClient) {
   }
