@@ -17,8 +17,7 @@ export class FinanceIncomeCatService {
     this.http.get('http://pejak.ddns.net:10080/getIncomeCategories/').subscribe({
       next: (data: any) => {
         this.incomeCategoriesList = data;
-        console.debug('Finance data is here :');
-        console.debug(data);
+        console.debug('Finance data is here :' + JSON.stringify(data));
       }
     })
   }
