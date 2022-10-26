@@ -53,12 +53,13 @@ const benjaminWeightInit = (benjaminWeightService: BenjaminWeightService) => {
     BenjaminWeightComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {useHash: true}),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule
   ],
+  exports: [RouterModule],
   providers: [FinanceIncomeCatService, {
     provide: APP_INITIALIZER,
     useFactory: appInitializerFn,
@@ -68,8 +69,8 @@ const benjaminWeightInit = (benjaminWeightService: BenjaminWeightService) => {
     provide: APP_INITIALIZER,
     useFactory:
     benjaminWeightInit,
-    multi:true,
-    deps:[BenjaminWeightService]
+    multi: true,
+    deps: [BenjaminWeightService]
   }],
   bootstrap: [AppComponent]
 })
