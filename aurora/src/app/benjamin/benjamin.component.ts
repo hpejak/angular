@@ -14,6 +14,6 @@ export class BenjaminComponent implements OnInit {
   }
 
   onBenjaminWeightClick() {
-    this.router.navigate(["/benjamin-weight"], {relativeTo: this.route})
+    this.router.navigate(["/family/benjamin/benjamin-weight"], {relativeTo: this.route})
   }
 }

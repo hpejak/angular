@@ -16,14 +16,19 @@ import {HomeComponent} from './home/home.component';
 import {BenjaminComponent} from './benjamin/benjamin.component';
 import {BenjaminWeightComponent} from './benjamin/benjamin-weight/benjamin-weight.component';
 import {BenjaminWeightService} from "./benjamin/benjamin-weight/benjamin-weight.service";
+import { HouseholdComponent } from './household/household.component';
+import { WaterConsumptionComponent } from './household/water-consumption/water-consumption.component';
 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: 'income', component: FinanceComponent},
   {path: 'database', component: DatabaseConnectionsComponent},
-  {path: 'benjamin', component: BenjaminComponent},
-  {path: 'benjamin-weight', component: BenjaminWeightComponent},
+  {path: 'finance/income', component: FinanceComponent},
+  {path: 'finance/finance-cat', component: FinanceIncomeCatComponent},
+  {path: 'family/benjamin', component: BenjaminComponent},
+  {path: 'family/benjamin/benjamin-weight', component: BenjaminWeightComponent},
+  {path: 'household', component: HouseholdComponent},
+  {path: 'household/water-consumption', component: WaterConsumptionComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
@@ -50,7 +55,9 @@ const benjaminWeightInit = (benjaminWeightService: BenjaminWeightService) => {
     FinanceIncomeCatComponent,
     HomeComponent,
     BenjaminComponent,
-    BenjaminWeightComponent
+    BenjaminWeightComponent,
+    HouseholdComponent,
+    WaterConsumptionComponent
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
