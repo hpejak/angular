@@ -20,8 +20,7 @@ export class BenjaminWeightComponent implements OnInit {
   ngOnInit(): void {
     console.debug('Benjamin Weight Component ngOnInit');
     this.weights = this.benjaminWeightService.getBenjaminWeights();
-    console.debug('Weights after get:')
-    console.debug(this.weights)
+    console.debug('Weights after get: ' + JSON.stringify(this.weights))
   }
 
 }
