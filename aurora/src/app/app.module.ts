@@ -33,12 +33,6 @@ const routes: Routes = [
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
 
-const appInitializerFn = (financeIncomeCatService: FinanceIncomeCatService) => {
-  return () => {
-    return financeIncomeCatService.getIncomeData();
-  };
-};
-
 const benjaminWeightInit = (benjaminWeightService: BenjaminWeightService) => {
   return () => {
     return benjaminWeightService.getBenjaminWeights();
@@ -67,12 +61,8 @@ const benjaminWeightInit = (benjaminWeightService: BenjaminWeightService) => {
     FormsModule
   ],
   exports: [RouterModule],
-  providers: [FinanceIncomeCatService, {
-    provide: APP_INITIALIZER,
-    useFactory: appInitializerFn,
-    multi: true,
-    deps: [FinanceIncomeCatService]
-  }, BenjaminWeightService, {
+  providers: [FinanceIncomeCatService,
+    BenjaminWeightService, {
     provide: APP_INITIALIZER,
     useFactory:
     benjaminWeightInit,

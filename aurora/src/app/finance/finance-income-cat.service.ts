@@ -1,30 +1,30 @@
 import {Injectable} from "@angular/core";
 import {FinanceCat} from "./finance-cat.model";
 import {HttpClient} from "@angular/common/http";
+// @ts-ignore
+import {map, Observable} from "rxjs";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FinanceIncomeCatService {
-  private incomeCategoriesList: FinanceCat[] = [];
+
+  private incomeCategoryApi = 'http://pejak.ddns.net:10080/getIncomeCategories';
 
   constructor(private http: HttpClient) {
     console.debug('Finance Income Cat Constructor')
-    this.updateIncomeCat()
   }
 
-
-  updateIncomeCat() {
-    console.debug('Finance Income Cat update')
-    this.http.get('http://pejak.ddns.net:10080/getIncomeCategories/').subscribe({
-      next: (data: any) => {
-        this.incomeCategoriesList = data;
-        console.debug('Finance data is here :' + JSON.stringify(data));
-      }
-    })
-  }
-
-  getIncomeData() {
+  getIncomeCatData(): Observable<FinanceCat[]> {
     console.debug('Finance Income Cat get')
-    return this.incomeCategoriesList;
+    return this.updateIncomeCat();
   }
 
+  private updateIncomeCat() {
+    console.debug('Finance Income Cat update')
+
+    return this.http.get<FinanceCat[]>(this.incomeCategoryApi).pipe(
+        map((response: FinanceCat[]) => response)
+      );
+  }
 }

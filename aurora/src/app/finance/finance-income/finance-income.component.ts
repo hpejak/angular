@@ -21,10 +21,17 @@ export class FinanceIncomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.debug('Finance Income ngOnInit')
-    this.financeCategories = this.financeIncomeCatService.getIncomeData();
-    console.debug("Finance Income data: ")
-    console.debug(this.financeCategories)
+    this.initIncomeData();
+    console.debug("Finance Income data: " + JSON.stringify(this.financeCategories))
+  }
+
+  private initIncomeData() {
+    this.financeIncomeCatService.getIncomeCatData().subscribe(
+      (data: any) => {
+        console.debug('Finance Categories = ' + JSON.stringify(data));
+        this.financeCategories = data
+      }
+    );
   }
 
 
