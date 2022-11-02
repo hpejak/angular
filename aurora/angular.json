@@ -103,5 +103,8 @@
       }
     }
   },
-  "defaultProject": "aurora"
+  "defaultProject": "aurora",
+  "cli": {
+    "analytics": false
+  }
 }

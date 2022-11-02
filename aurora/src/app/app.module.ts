@@ -1,23 +1,23 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavigationComponent} from './navigation/navigation.component';
-import {HttpClientModule} from "@angular/common/http";
 import {DatabaseConnectionsComponent} from './database-connections/database-connections.component';
 import {FormsModule} from "@angular/forms";
 import {FinanceComponent} from './finance/finance.component';
 import {FinanceIncomeComponent} from './finance/finance-income/finance-income.component';
 import {FinanceIncomeCatComponent} from './finance/finance-income-cat/finance-income-cat.component';
 import {FinanceIncomeCatService} from "./finance/finance-income-cat.service";
-import {RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from './home/home.component';
 import {BenjaminComponent} from './benjamin/benjamin.component';
 import {BenjaminWeightComponent} from './benjamin/benjamin-weight/benjamin-weight.component';
 import {BenjaminWeightService} from "./benjamin/benjamin-weight/benjamin-weight.service";
-import { HouseholdComponent } from './household/household.component';
-import { WaterConsumptionComponent } from './household/water-consumption/water-consumption.component';
+import {HouseholdComponent} from './household/household.component';
+import {WaterConsumptionComponent} from './household/water-consumption/water-consumption.component';
+import {HttpClientModule} from "@angular/common/http";
+import {RouterModule, Routes} from "@angular/router";
 
 
 const routes: Routes = [
@@ -32,12 +32,6 @@ const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
-
-const benjaminWeightInit = (benjaminWeightService: BenjaminWeightService) => {
-  return () => {
-    return benjaminWeightService.getBenjaminWeights();
-  };
-};
 
 @NgModule({
   declarations: [
@@ -61,14 +55,10 @@ const benjaminWeightInit = (benjaminWeightService: BenjaminWeightService) => {
     FormsModule
   ],
   exports: [RouterModule],
-  providers: [FinanceIncomeCatService,
-    BenjaminWeightService, {
-    provide: APP_INITIALIZER,
-    useFactory:
-    benjaminWeightInit,
-    multi: true,
-    deps: [BenjaminWeightService]
-  }],
+  providers: [
+    FinanceIncomeCatService,
+    BenjaminWeightService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {FinanceCat} from "../finance-cat.model";
 import {FinanceIncomeCatService} from "../finance-income-cat.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-finance-income',
