@@ -1,1 +1,26 @@
-<p>water-consumption works!</p>
+<div class="main-div-margin">
+  <table class="table table-primary table-striped table-hover">
+    <thead>
+
+    <tr>
+      <th>Month</th>
+      <th>Total Consumption</th>
+      <th>Upstairs Consumption</th>
+      <th>Downstairs Consumption</th>
+      <th>Courtyard House Consumption</th>
+      <th>Rest Water Consumption</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let waterEntry of waterConsumption ">
+      <td>{{waterEntry.month_referred}}</td>
+      <td>{{waterEntry.total_consumption}}</td>
+      <td>{{waterEntry.upstairs_consumption}}</td>
+      <td>{{waterEntry.downstairs_consumption}}</td>
+      <td>{{waterEntry.courtyard_house_consumption}}</td>
+      <td>{{restWaterEntry(waterEntry)}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

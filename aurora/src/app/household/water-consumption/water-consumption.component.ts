@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {WaterConsumption} from "../common/WaterConsumption";
+import {HouseholdService} from "../household.service";
 
 @Component({
   selector: 'app-water-consumption',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WaterConsumptionComponent implements OnInit {
 
-  constructor() { }
+  waterConsumption!: WaterConsumption[];
+
+  constructor(private householdService: HouseholdService) { }
 
   ngOnInit(): void {
+      this.handleWaterConsumption();
   }
 
+  private handleWaterConsumption(){
+    this.householdService.getWaterConsumption().subscribe(data=>this.waterConsumption = data)
+  }
+
+  restWaterEntry(waterEntry: WaterConsumption) {
+    return waterEntry.total_consumption -
+      (waterEntry.upstairs_consumption + waterEntry.downstairs_consumption + waterEntry.courtyard_house_consumption)
+  }
 }
