@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {WaterConsumption} from "../common/WaterConsumption";
 import {HouseholdService} from "../household.service";
 
@@ -11,18 +11,50 @@ export class WaterConsumptionComponent implements OnInit {
 
   waterConsumption!: WaterConsumption[];
 
-  constructor(private householdService: HouseholdService) { }
-
-  ngOnInit(): void {
-      this.handleWaterConsumption();
+  constructor(private householdService: HouseholdService) {
   }
 
-  private handleWaterConsumption(){
-    this.householdService.getWaterConsumption().subscribe(data=>this.waterConsumption = data)
+  ngOnInit(): void {
+    this.handleWaterConsumption();
+  }
+
+  private handleWaterConsumption() {
+    this.householdService.getWaterConsumption().subscribe(data =>
+      this.waterConsumption = this.calculateWaterConsumption(data))
+  }
+
+  private calculateWaterConsumption(waterConsumptionData: WaterConsumption[]){
+    const updatedWaterConsumptionData: WaterConsumption[] = [];
+    let lastConsumption: WaterConsumption
+
+    waterConsumptionData.forEach(waterConsumption => {
+      if( lastConsumption ) {
+        waterConsumption.totalDifference
+          = this.roundConsumption(waterConsumption.totalConsumption - lastConsumption.totalConsumption);
+        waterConsumption.upstairsDifference
+          = this.roundConsumption(waterConsumption.upstairsConsumption - lastConsumption.upstairsConsumption);
+        waterConsumption.downstairsDifference
+          = this.roundConsumption(waterConsumption.downstairsConsumption - lastConsumption.downstairsConsumption);
+      }
+      updatedWaterConsumptionData.push(waterConsumption)
+      lastConsumption = waterConsumption;
+    })
+
+    return updatedWaterConsumptionData;
+  }
+
+  getYearAndMonth(waterEntry: WaterConsumption) {
+    const monthDay: Date = new Date(waterEntry.monthReferred);
+    return monthDay.getUTCFullYear() + '-' + (monthDay.toLocaleString('default', { month: 'long' }));
   }
 
   restWaterEntry(waterEntry: WaterConsumption) {
-    return waterEntry.total_consumption -
-      (waterEntry.upstairs_consumption + waterEntry.downstairs_consumption + waterEntry.courtyard_house_consumption)
+    return waterEntry.totalConsumption -
+      (waterEntry.upstairsConsumption + waterEntry.downstairsConsumption + waterEntry.courtyardHouseConsumption)
   }
+
+  private roundConsumption(value: number): number{
+    return Math.round(value * 100) / 100
+  }
+
 }

@@ -7,13 +7,21 @@ import {WaterConsumption} from "./common/WaterConsumption";
   providedIn: 'root'
 })
 export class HouseholdService {
-  private waterConsumptionApi: string = 'http://pejak.ddns.net:10082/getWaterConsumption/';
+  private householdApi: string = 'http://pejak.ddns.net:10082/';
 
   constructor(private httpClient: HttpClient) {
   }
 
   getWaterConsumption(): Observable<WaterConsumption[]> {
-    return this.httpClient.get<WaterConsumption[]>(this.waterConsumptionApi)
+    console.debug("Called records for water consumption");
+    return this.httpClient.get<WaterConsumption[]>(this.householdApi + 'getWaterConsumption/');
+  }
+
+  addWaterConsumption() {
+    this.httpClient.post(this.householdApi + 'addWaterConsumption/', {})
+      .subscribe((responseData: any) => {
+        console.log(responseData);
+      });
   }
 
 }

@@ -4,21 +4,21 @@
 
     <tr>
       <th>Month</th>
-      <th>Total Consumption</th>
-      <th>Upstairs Consumption</th>
-      <th>Downstairs Consumption</th>
-      <th>Courtyard House Consumption</th>
-      <th>Rest Water Consumption</th>
+      <th>Courtyard House Cons.</th>
+      <th>Total Diff. Cons.</th>
+      <th>Upstairs Diff. Cons.</th>
+      <th>Downstairs Diff. Cons.</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let waterEntry of waterConsumption ">
-      <td>{{waterEntry.month_referred}}</td>
-      <td>{{waterEntry.total_consumption}}</td>
-      <td>{{waterEntry.upstairs_consumption}}</td>
-      <td>{{waterEntry.downstairs_consumption}}</td>
-      <td>{{waterEntry.courtyard_house_consumption}}</td>
-      <td>{{restWaterEntry(waterEntry)}}</td>
+      <td>{{getYearAndMonth(waterEntry)}}</td>
+      <td>{{waterEntry.courtyardHouseConsumption}}</td>
+      <td title="Total Consumption was: {{waterEntry.totalConsumption}}">{{waterEntry.totalDifference }}</td>
+      <td title="Upstairs Consumption was: {{waterEntry.upstairsConsumption}}">{{waterEntry.upstairsDifference}}</td>
+      <td title="Downstairs Consumption was: {{waterEntry.downstairsConsumption}}">
+        {{waterEntry.downstairsDifference}}
+      </td>
     </tr>
     </tbody>
   </table>
