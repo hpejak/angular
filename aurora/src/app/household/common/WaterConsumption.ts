@@ -1,3 +1,5 @@
+import {WaterBilling} from "./WaterBilling";
+
 export class WaterConsumption {
 
   constructor(
@@ -8,9 +10,9 @@ export class WaterConsumption {
     public downstairsConsumption: number,
     public courtyardHouseConsumption: number,
     public waterConsumptionRest: number,
-    public totalDifference:number,
-    public upstairsDifference:number,
-    public downstairsDifference:number,
+    public totalDifference: number,
+    public upstairsDifference: number,
+    public downstairsDifference: number,
     public courtyardHouseDifference: number,
     public billConsumption: number,
     public cubicPrice: number,
@@ -18,6 +20,8 @@ export class WaterConsumption {
     public billPrice: number,
     public calculatedPrice: number,
     public individualPrice: {},
-    public insertTimestamp: Date) {
+    public waterBilling: WaterBilling,
+    public insertTimestamp: Date
+  ) {
   }
 }

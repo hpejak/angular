@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WaterConsumption} from "../common/WaterConsumption";
 import {HouseholdService} from "../household.service";
+import {WaterIndividualPayment} from "../common/WaterIndividualPayment";
 
 @Component({
   selector: 'app-water-consumption',
@@ -10,12 +11,16 @@ import {HouseholdService} from "../household.service";
 export class WaterConsumptionComponent implements OnInit {
 
   waterConsumption!: WaterConsumption[];
+  private individualsNum: number = 2;
+  private individuals: Map<string, string[]>
+    = new Map<string, string[]>([["Pejak", ["upstairs"]], ["Teodorovic", ["downstairs", "courtyard", "rest"]]])
 
   constructor(private householdService: HouseholdService) {
   }
 
   ngOnInit(): void {
     this.handleWaterConsumption();
+
   }
 
   private handleWaterConsumption() {
@@ -38,19 +43,14 @@ export class WaterConsumptionComponent implements OnInit {
         waterConsumption.courtyardHouseDifference = this.roundConsumption(
           waterConsumption.courtyardHouseConsumption - lastConsumption.courtyardHouseConsumption)
         waterConsumption.waterConsumptionRest = this.restWaterEntry(waterConsumption);
-        waterConsumption.calculatedPrice =  this.calculateBillPrice(waterConsumption);
+        waterConsumption.calculatedPrice = this.calculateBillPrice(waterConsumption);
       }
-      waterConsumption.individualPrice = this.calculateIndividualPrice(waterConsumption);
+      this.defineIndividualPayments(waterConsumption);
       updatedWaterConsumptionData.push(waterConsumption)
       lastConsumption = waterConsumption;
     })
 
     return updatedWaterConsumptionData;
-  }
-
-  getYearAndMonth(waterEntry: WaterConsumption) {
-    const monthDay: Date = new Date(waterEntry.monthReferred);
-    return monthDay.getUTCFullYear() + '-' + (monthDay.toLocaleString('default', {month: 'long'}));
   }
 
   private restWaterEntry(waterEntry: WaterConsumption) {
@@ -60,34 +60,84 @@ export class WaterConsumptionComponent implements OnInit {
         waterEntry.courtyardHouseDifference))
   }
 
-  private calculateBillPrice(waterEntry:WaterConsumption){
+  private calculateBillPrice(waterEntry: WaterConsumption) {
     return waterEntry.totalDifference * waterEntry.cubicPrice + waterEntry.flatFee
   }
 
-  private calculateIndividualPrice(waterEntry:WaterConsumption){
-    const individuals:number = 2;
+  private defineIndividualPayments(waterEntry: WaterConsumption) {
+    let individualPayments: WaterIndividualPayment[] = waterEntry?.waterBilling?.waterIndividualPayments;
 
-    let individualPrices = new Map();
+    if ((individualPayments === undefined || individualPayments.length == 0) && waterEntry.waterBilling != null) {
+      console.debug("Payments are NOT in DB")
 
-    let upstairsPrice = (waterEntry.upstairsDifference * waterEntry.cubicPrice);
-    let downstairsPrice = (waterEntry.downstairsDifference * waterEntry.cubicPrice);
-    let corHousePrice = (waterEntry.courtyardHouseDifference * waterEntry.cubicPrice);
-    let restPrice = (waterEntry.waterConsumptionRest * waterEntry.cubicPrice);
+      waterEntry.waterBilling.waterIndividualPayments = this.calculateIndividualPayments(waterEntry);
 
-    individualPrices.set(
-      'Pejak',
-      this.roundConsumption(upstairsPrice + (waterEntry.flatFee/individuals)))
-    individualPrices.set(
-      'Teodorović',
-      this.roundConsumption(downstairsPrice + corHousePrice + restPrice + (waterEntry.flatFee/individuals)))
+    } else if (individualPayments !== undefined &&
+      individualPayments.length > 0 &&
+      individualPayments.length < this.individualsNum &&
+      waterEntry.waterBilling != null) {
+      console.debug("Payments partially in DB");
 
-    return individualPrices;
+      let calculations: WaterIndividualPayment[] = this.calculateIndividualPayments(waterEntry)
+
+      individualPayments.forEach(individualPayment => {
+        // TODO This is stupid
+        let notDbRecords = calculations.filter(item =>  item.name != individualPayment.name);
+        individualPayments.push(...notDbRecords);
+
+        calculations.forEach(calculated => {
+          if (individualPayment.name == calculated.name &&
+            individualPayment.calculatedPrice != calculated.calculatedPrice) {
+            individualPayment.error = 'Mismatch in database data and real time calculated price';
+          }
+        })
+      })
+
+      console.debug("Payments in partial: " + JSON.stringify(individualPayments))
+      // waterEntry.waterBilling.waterIndividualPayments = this.calculateIndividualPayments(waterEntry);
+
+    } else if (individualPayments != null && individualPayments.length == this.individualsNum) {
+      console.debug("Payments are in DB")
+    }
+  }
+
+  private calculateIndividualPayments(waterEntry: WaterConsumption) {
+    let individualPayments: WaterIndividualPayment[] = [];
+
+    this.individuals.forEach((key, value) => {
+      let waterIndividualPayment: WaterIndividualPayment = {} as WaterIndividualPayment;
+      waterIndividualPayment.name = value
+      let basicPrice: number = 0
+
+      key.forEach(location => {
+        if (waterEntry?.waterBilling?.cubicPrice != null) {
+          if (location === "upstairs") {
+            basicPrice += (waterEntry.upstairsDifference * waterEntry?.waterBilling?.cubicPrice);
+          } else if (location === "downstairs") {
+            basicPrice += (waterEntry.downstairsDifference * waterEntry?.waterBilling?.cubicPrice);
+          } else if (location === "courtyard") {
+            basicPrice += (waterEntry.courtyardHouseDifference * waterEntry?.waterBilling?.cubicPrice);
+          } else if (location === "rest") {
+            basicPrice += (waterEntry.waterConsumptionRest * waterEntry?.waterBilling?.cubicPrice);
+          } else {
+            console.warn(location + " is not valid for consumption calculation");
+          }
+        }
+      })
+      waterIndividualPayment.calculatedPrice = basicPrice + (waterEntry?.waterBilling?.flatFee / this.individualsNum)
+      individualPayments.push(waterIndividualPayment)
+    });
+
+    return individualPayments
   }
 
   private roundConsumption(value: number): number {
     return Math.round(value * 100) / 100
   }
 
-
+  getYearAndMonth(waterEntry: WaterConsumption) {
+    const monthDay: Date = new Date(waterEntry.monthReferred);
+    return monthDay.getUTCFullYear() + '-' + (monthDay.toLocaleString('default', {month: 'long'}));
+  }
 
 }

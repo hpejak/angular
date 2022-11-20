@@ -5,12 +5,12 @@
     <tr>
       <th>Month</th>
       <th>Total Diff. Cons.</th>
-      <th>Upstairs Diff. Cons.</th>
-      <th>Downstairs Diff. Cons.</th>
-      <th>Courtyard House Diff Cons.</th>
+      <th>Up. Diff. Cons.</th>
+      <th>Down. Diff. Cons.</th>
+      <th>Court. Diff Cons.</th>
       <th>Rest</th>
       <th>Individual Price</th>
-      <th>Cumulative Price</th>
+      <th>Total Price</th>
     </tr>
     </thead>
     <tbody>
@@ -32,12 +32,21 @@
       </td>
       <td>{{waterEntry.waterConsumptionRest}}</td>
       <td>
-        <p *ngFor="let indPrice of waterEntry.individualPrice | keyvalue">
-          {{indPrice.key }} : {{indPrice.value}}
+        <p *ngFor="let indPrice of waterEntry?.waterBilling?.waterIndividualPayments">
+          <span *ngIf="indPrice.calculatedPrice">
+            <ng-template [ngIf]="indPrice.error" [ngIfElse]="elseBlock">
+              <span  class="text-danger">{{indPrice.error}} for {{indPrice.name}}</span>
+            </ng-template>
+            <ng-template #elseBlock>
+              <span  >{{indPrice.name  }}</span>
+              <span> : </span>
+            <span>{{indPrice.calculatedPrice | currency:"Kn "}}</span>
+            </ng-template>
+          </span>
         </p>
       </td>
       <td title="Bill Price: {{ waterEntry.billPrice}}">
-        {{waterEntry.calculatedPrice | currency:'Kn '}}
+        {{waterEntry.calculatedPrice | currency:"Kn "}}
       </td>
     </tr>
     </tbody>
