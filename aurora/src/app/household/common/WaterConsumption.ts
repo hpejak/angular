@@ -14,12 +14,9 @@ export class WaterConsumption {
     public upstairsDifference: number,
     public downstairsDifference: number,
     public courtyardHouseDifference: number,
-    public billConsumption: number,
     public cubicPrice: number,
     public flatFee: number,
-    public billPrice: number,
     public calculatedPrice: number,
-    public individualPrice: {},
     public waterBilling: WaterBilling,
     public insertTimestamp: Date
   ) {

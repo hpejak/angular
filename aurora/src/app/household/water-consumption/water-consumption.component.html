@@ -9,7 +9,7 @@
       <th>Down. Diff. Cons.</th>
       <th>Court. Diff Cons.</th>
       <th>Rest</th>
-      <th>Individual Price</th>
+      <th class="td-danger">Individual Price</th>
       <th>Total Price</th>
     </tr>
     </thead>
@@ -35,18 +35,21 @@
         <p *ngFor="let indPrice of waterEntry?.waterBilling?.waterIndividualPayments">
           <span *ngIf="indPrice.calculatedPrice">
             <ng-template [ngIf]="indPrice.error" [ngIfElse]="elseBlock">
-              <span  class="text-danger">{{indPrice.error}} for {{indPrice.name}}</span>
+              <span class="text-danger">{{indPrice.error}} for {{indPrice.name}}</span>
             </ng-template>
             <ng-template #elseBlock>
-              <span  >{{indPrice.name  }}</span>
+              <span>{{indPrice.name  }}</span>
               <span> : </span>
-            <span>{{indPrice.calculatedPrice | currency:"Kn "}}</span>
+            <span>
+              {{indPrice.calculatedPrice | currency: waterEntry.waterBilling.currency.sign + ' '}}
+            </span>
             </ng-template>
           </span>
         </p>
       </td>
-      <td title="Bill Price: {{ waterEntry.billPrice}}">
-        {{waterEntry.calculatedPrice | currency:"Kn "}}
+      <td title="Bill Price: {{ waterEntry?.waterBilling?.billPrice}}">
+        {{waterEntry?.waterBilling?.calculatedCost |
+        currency:waterEntry?.waterBilling?.currency?.sign + ' '}}
       </td>
     </tr>
     </tbody>
