@@ -94,7 +94,6 @@ export class WaterConsumptionComponent implements OnInit {
       })
 
       console.debug("Payments in partial: " + JSON.stringify(individualPayments))
-      // waterEntry.waterBilling.waterIndividualPayments = this.calculateIndividualPayments(waterEntry);
 
     } else if (individualPayments != null && individualPayments.length == this.individualsNum) {
       console.debug("Payments are in DB")
@@ -139,5 +138,4 @@ export class WaterConsumptionComponent implements OnInit {
     const monthDay: Date = new Date(waterEntry.monthReferred);
     return monthDay.getUTCFullYear() + '-' + (monthDay.toLocaleString('default', {month: 'long'}));
   }
-
 }

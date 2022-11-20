@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let waterEntry of waterConsumption ">
+    <tr *ngFor="let waterEntry of waterConsumption" routerLink="/household/water-consumption-details/{{waterEntry}}">
       <td>
         {{getYearAndMonth(waterEntry)}}
       </td>

@@ -18,6 +18,7 @@ import {HouseholdComponent} from './household/household.component';
 import {WaterConsumptionComponent} from './household/water-consumption/water-consumption.component';
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
+import { WaterConsumptionDetailsComponent } from './household/water-consumption-details/water-consumption-details.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'family/benjamin/benjamin-weight', component: BenjaminWeightComponent},
   {path: 'household', component: HouseholdComponent},
   {path: 'household/water-consumption', component: WaterConsumptionComponent},
+  {path: 'household/water-consumption-details/:waterEntry', component: WaterConsumptionDetailsComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
@@ -45,7 +47,8 @@ const routes: Routes = [
     BenjaminComponent,
     BenjaminWeightComponent,
     HouseholdComponent,
-    WaterConsumptionComponent
+    WaterConsumptionComponent,
+    WaterConsumptionDetailsComponent,
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
