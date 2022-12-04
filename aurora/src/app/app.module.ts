@@ -19,6 +19,7 @@ import {WaterConsumptionComponent} from './household/water-consumption/water-con
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
 import { WaterConsumptionDetailsComponent } from './household/water-consumption-details/water-consumption-details.component';
+import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 const routes: Routes = [
@@ -55,7 +56,9 @@ const routes: Routes = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbPaginationModule,
+    NgbPaginationModule
   ],
   exports: [RouterModule],
   providers: [
