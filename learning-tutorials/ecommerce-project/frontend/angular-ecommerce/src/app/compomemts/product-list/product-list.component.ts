@@ -14,9 +14,9 @@ export class ProductListComponent implements OnInit {
   previousCategoryId: number = 1;
   searchMode: boolean = false;
 
-  thaPageNumber: number = 1;
-  thaPageSize: number = 10;
-  thaTotalElements: number = 0;
+  thePageNumber: number = 1;
+  thePageSize: number = 10;
+  theTotalElements: number = 0;
 
 
   constructor(private productService: ProductService, private route: ActivatedRoute) {
@@ -48,21 +48,21 @@ export class ProductListComponent implements OnInit {
     }
 
     if (this.previousCategoryId != this.currentCategoryId) {
-      this.thaPageNumber = 1;
+      this.thePageNumber = 1;
     }
 
     this.previousCategoryId = this.currentCategoryId;
 
-    console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thaPageNumber}`)
+    console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thePageNumber}`)
 
     this.productService.getProductListPaginate(
-      this.thaPageNumber - 1,
-      this.thaPageSize,
+      this.thePageNumber - 1,
+      this.thePageSize,
       this.currentCategoryId).subscribe(data => {
       this.products = data._embedded.products;
-      this.thaPageNumber = data.page.number + 1;
-      this.thaPageSize = data.page.size;
-      this.thaTotalElements = data.page.totalElements;
+      this.thePageNumber = data.page.number + 1;
+      this.thePageSize = data.page.size;
+      this.theTotalElements = data.page.totalElements;
     });
 
   }
