@@ -25,14 +25,14 @@ export class WaterConsumptionComponent implements OnInit {
 
   private handleWaterConsumption() {
     this.householdService.getWaterConsumption().subscribe(data =>
-      this.waterConsumption = this.calculateWaterConsumption(data))
+      this.waterConsumption = this.calculateWaterConsumption(data.content))
   }
 
   private calculateWaterConsumption(waterConsumptionData: WaterConsumption[]) {
     const updatedWaterConsumptionData: WaterConsumption[] = [];
     let lastConsumption: WaterConsumption
 
-    waterConsumptionData.forEach(waterConsumption => {
+    Array.from(waterConsumptionData).forEach(waterConsumption => {
       if (lastConsumption) {
         waterConsumption.totalDifference = this.roundConsumption(
           waterConsumption.totalConsumption - lastConsumption.totalConsumption);
@@ -82,7 +82,7 @@ export class WaterConsumptionComponent implements OnInit {
 
       individualPayments.forEach(individualPayment => {
         // TODO This is stupid
-        let notDbRecords = calculations.filter(item =>  item.name != individualPayment.name);
+        let notDbRecords = calculations.filter(item => item.name != individualPayment.name);
         individualPayments.push(...notDbRecords);
 
         calculations.forEach(calculated => {

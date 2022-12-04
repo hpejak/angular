@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {WaterConsumption} from "./common/WaterConsumption";
+import {WaterConsumptionPage} from "./common/WaterConsumptionPage";
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +12,10 @@ export class HouseholdService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getWaterConsumption(): Observable<WaterConsumption[]> {
+  getWaterConsumption(): Observable<WaterConsumptionPage> {
     console.debug("Called records for water consumption");
-    return this.httpClient.get<WaterConsumption[]>(this.householdApi + 'getWaterConsumption/');
+
+    return this.httpClient.get<WaterConsumptionPage>(this.householdApi + 'getWaterConsumption/');
   }
 
   addWaterConsumption() {
@@ -25,3 +26,4 @@ export class HouseholdService {
   }
 
 }
+
