@@ -15,7 +15,7 @@ export class HouseholdService {
   getWaterConsumption(): Observable<WaterConsumptionPage> {
     console.debug("Called records for water consumption");
 
-    return this.httpClient.get<WaterConsumptionPage>(this.householdApi + 'getWaterConsumption/');
+    return this.httpClient.get<WaterConsumptionPage>(this.householdApi + 'getWaterConsumption?pageSize=5');
   }
 
   addWaterConsumption() {

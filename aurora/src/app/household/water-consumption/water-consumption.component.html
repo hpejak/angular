@@ -54,5 +54,18 @@
     </tr>
     </tbody>
   </table>
+  <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+      <ngb-pagination
+        [(page)]="consumptionPage"
+        [pageSize]="consumptionPageSize"
+        [collectionSize]="consumptionCollectionSize"
+        [boundaryLinks]="true"
+        [rotate]="true">
+
+      </ngb-pagination>
+    </div>
+  </div>
 </div>
 

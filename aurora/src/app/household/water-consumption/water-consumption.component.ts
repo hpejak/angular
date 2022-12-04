@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {WaterConsumption} from "../common/WaterConsumption";
 import {HouseholdService} from "../household.service";
 import {WaterIndividualPayment} from "../common/WaterIndividualPayment";
+import {WaterConsumptionPage} from "../common/WaterConsumptionPage";
 
 @Component({
   selector: 'app-water-consumption',
@@ -9,6 +10,10 @@ import {WaterIndividualPayment} from "../common/WaterIndividualPayment";
   styleUrls: ['./water-consumption.component.css']
 })
 export class WaterConsumptionComponent implements OnInit {
+
+  consumptionPage: number = 0;
+  consumptionPageSize: number = 5;
+  consumptionCollectionSize: number = 10;
 
   waterConsumption!: WaterConsumption[];
   private individualsNum: number = 2;
@@ -24,8 +29,13 @@ export class WaterConsumptionComponent implements OnInit {
   }
 
   private handleWaterConsumption() {
-    this.householdService.getWaterConsumption().subscribe(data =>
-      this.waterConsumption = this.calculateWaterConsumption(data.content))
+    this.householdService.getWaterConsumption().subscribe((data: WaterConsumptionPage) => {
+        this.consumptionPage = data.pageable.pageNumber;
+        this.consumptionPageSize = data.pageable.pageSize;
+        this.consumptionCollectionSize = data.totalElements;
+        this.waterConsumption = this.calculateWaterConsumption(data.content);
+      }
+    )
   }
 
   private calculateWaterConsumption(waterConsumptionData: WaterConsumption[]) {
