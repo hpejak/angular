@@ -62,7 +62,7 @@
         [pageSize]="consumptionPageSize"
         [collectionSize]="consumptionCollectionSize"
         [boundaryLinks]="true"
-        [rotate]="true">
+        (pageChange)="handleWaterConsumption()">
 
       </ngb-pagination>
     </div>

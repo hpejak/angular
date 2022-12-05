@@ -12,10 +12,12 @@ export class HouseholdService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getWaterConsumption(): Observable<WaterConsumptionPage> {
+  getWaterConsumption(page: number): Observable<WaterConsumptionPage> {
     console.debug("Called records for water consumption");
 
-    return this.httpClient.get<WaterConsumptionPage>(this.householdApi + 'getWaterConsumption?pageSize=5');
+    return this.httpClient.get<WaterConsumptionPage>(this.householdApi
+      + 'getWaterConsumption?page=' + page
+      + '&pageSize=5');
   }
 
   addWaterConsumption() {

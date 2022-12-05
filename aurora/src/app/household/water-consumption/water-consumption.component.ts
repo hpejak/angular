@@ -11,7 +11,7 @@ import {WaterConsumptionPage} from "../common/WaterConsumptionPage";
 })
 export class WaterConsumptionComponent implements OnInit {
 
-  consumptionPage: number = 0;
+  consumptionPage: number = 1;
   consumptionPageSize: number = 5;
   consumptionCollectionSize: number = 10;
 
@@ -28,14 +28,18 @@ export class WaterConsumptionComponent implements OnInit {
 
   }
 
-  private handleWaterConsumption() {
-    this.householdService.getWaterConsumption().subscribe((data: WaterConsumptionPage) => {
-        this.consumptionPage = data.pageable.pageNumber;
-        this.consumptionPageSize = data.pageable.pageSize;
-        this.consumptionCollectionSize = data.totalElements;
-        this.waterConsumption = this.calculateWaterConsumption(data.content);
-      }
-    )
+  handleWaterConsumption() {
+
+    console.debug(`ConsumptionPage=${this.consumptionPage -1 }`)
+    this.householdService.getWaterConsumption(this.consumptionPage -1 )
+      .subscribe((data: WaterConsumptionPage) => {
+          this.consumptionPage = data.pageable.pageNumber + 1;
+          this.consumptionPageSize = data.pageable.pageSize;
+          this.consumptionCollectionSize = data.totalElements;
+
+          this.waterConsumption = this.calculateWaterConsumption(data.content);
+        }
+      )
   }
 
   private calculateWaterConsumption(waterConsumptionData: WaterConsumption[]) {
