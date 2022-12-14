@@ -18,17 +18,18 @@ export class CartService {
   addToCart(theCartItem: CartItem) {
 
     let alreadyExistsInCart: boolean = false;
-    let existingCartItem: CartItem = new CartItem(new Product());
+    let existingCartItem: CartItem =  new CartItem(new Product());
+    ;
 
     if (this.cartItems.length > 0) {
 
       for (let tempCartItem of this.cartItems) {
         if (tempCartItem.id === theCartItem.id) {
           existingCartItem = tempCartItem;
+          alreadyExistsInCart = true;
           break;
         }
       }
-      alreadyExistsInCart = (existingCartItem != undefined);
     }
 
     if (alreadyExistsInCart) {
