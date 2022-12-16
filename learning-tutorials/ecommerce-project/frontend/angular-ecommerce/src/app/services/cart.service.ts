@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CartItem} from "../common/cart-item";
 import {Subject} from "rxjs";
-import {Product} from "../common/product";
 
 @Injectable({
   providedIn: 'root'
@@ -16,23 +15,10 @@ export class CartService {
   }
 
   addToCart(theCartItem: CartItem) {
+    let existingCartItem: CartItem | undefined
+      = this.cartItems.find(tempCartItem => tempCartItem.id === theCartItem.id);
 
-    let alreadyExistsInCart: boolean = false;
-    let existingCartItem: CartItem =  new CartItem(new Product());
-    ;
-
-    if (this.cartItems.length > 0) {
-
-      for (let tempCartItem of this.cartItems) {
-        if (tempCartItem.id === theCartItem.id) {
-          existingCartItem = tempCartItem;
-          alreadyExistsInCart = true;
-          break;
-        }
-      }
-    }
-
-    if (alreadyExistsInCart) {
+    if (existingCartItem !== undefined) {
       existingCartItem.quantity++;
     } else {
       this.cartItems.push(theCartItem);
