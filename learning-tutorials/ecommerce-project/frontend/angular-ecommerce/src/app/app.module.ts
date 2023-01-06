@@ -6,11 +6,12 @@ import {ProductListComponent} from './compomemts/product-list/product-list.compo
 import {HttpClientModule} from '@angular/common/http';
 import {ProductService} from "./services/product.service";
 import {RouterModule, Routes} from "@angular/router";
-import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
-import { SearchComponent } from './components/search/search.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import {ProductCategoryMenuComponent} from './components/product-category-menu/product-category-menu.component';
+import {SearchComponent} from './components/search/search.component';
+import {ProductDetailsComponent} from './components/product-details/product-details.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { CartStatusComponent } from './components/cart-status/cart-status.component';
+import {CartStatusComponent} from './components/cart-status/cart-status.component';
+import {CartDetailsComponent} from './components/cart-details/cart-details.component';
 
 const routes: Routes = [
   {path: 'search/:keyword', component: ProductListComponent},
@@ -18,8 +19,9 @@ const routes: Routes = [
   {path: 'category', component: ProductListComponent},
   {path: 'products/:id', component: ProductDetailsComponent},
   {path: 'products', component: ProductListComponent},
-  {path: '', redirectTo:'/products', pathMatch:'full'},
-  {path: '**', redirectTo:'/products', pathMatch:'full'}
+  {path: 'cart-details', component: CartDetailsComponent},
+  {path: '', redirectTo: '/products', pathMatch: 'full'},
+  {path: '**', redirectTo: '/products', pathMatch: 'full'}
 ];
 
 @NgModule({
@@ -29,7 +31,8 @@ const routes: Routes = [
     ProductCategoryMenuComponent,
     SearchComponent,
     ProductDetailsComponent,
-    CartStatusComponent
+    CartStatusComponent,
+    CartDetailsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
