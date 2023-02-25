@@ -6,6 +6,6 @@ RUN yum install java-17-openjdk -y
 
 WORKDIR /root
 VOLUME /tmp
-ADD /target/spring-boot-ecommerce-1.3.2.jar ecommerce.jar
+ADD /target/spring-boot-ecommerce-1.4.2.jar ecommerce.jar
 RUN sh -c 'touch ecommerce.jar'
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom","-jar","ecommerce.jar"]
