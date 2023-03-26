@@ -32,7 +32,7 @@ export class CheckoutComponent implements OnInit {
         firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
         lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
         email: new FormControl('',
-          [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
+          [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
       shippingAddress: this.formBuilder.group({
         country: [''],
@@ -82,6 +82,11 @@ export class CheckoutComponent implements OnInit {
 
   onSubmit() {
     console.log("Btn Submit works!")
+
+    if (this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched();
+    }
+
     console.log(this.checkoutFormGroup.get('customer').value);
     console.log(this.checkoutFormGroup.get('customer').value.email);
     console.log("Shipping country is " + this.checkoutFormGroup.get('shippingAddress').value.country.name);
@@ -90,6 +95,18 @@ export class CheckoutComponent implements OnInit {
     console.log("Billing country is " + this.checkoutFormGroup.get('billingAddress').value.country.name);
     console.log("Billing state is " + this.checkoutFormGroup.get('billingAddress').value.state.name);
 
+  }
+
+  get firstName() {
+    return this.checkoutFormGroup.get('customer.firstName');
+  }
+
+  get lastName() {
+    return this.checkoutFormGroup.get('customer.lastName');
+  }
+
+  get email() {
+    return this.checkoutFormGroup.get('customer.email');
   }
 
   copyShippingAddressToBillingAddress(event) {
