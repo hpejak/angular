@@ -2,7 +2,7 @@
   <configuration default="false" name="spring-boot-ecommerce/Dockerfile" type="docker-deploy" factoryName="dockerfile" server-name="Jarvis Docker">
     <deployment type="dockerfile">
       <settings>
-        <option name="imageTag" value="ecommerce:1,ecommerce:1.4,ecommerce:1.4.1,ecommerce:latest" />
+        <option name="imageTag" value="ecommerce:1,ecommerce:1.5,ecommerce:1.5.3,ecommerce:latest" />
         <option name="containerName" value="ecommerce" />
         <option name="portBindings">
           <list>

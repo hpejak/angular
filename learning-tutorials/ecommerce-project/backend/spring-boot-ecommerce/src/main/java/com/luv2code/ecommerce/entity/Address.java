@@ -1,5 +1,6 @@
 package com.luv2code.ecommerce.entity;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ public class Address {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id")
+    @Column(name = "street")
     private String street;
 
     @Column(name = "city")
