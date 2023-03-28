@@ -30,8 +30,8 @@ export class WaterConsumptionComponent implements OnInit {
 
   handleWaterConsumption() {
 
-    console.debug(`ConsumptionPage=${this.consumptionPage -1 }`)
-    this.householdService.getWaterConsumption(this.consumptionPage -1 )
+    console.debug(`ConsumptionPage=${this.consumptionPage - 1}`)
+    this.householdService.getWaterConsumption(this.consumptionPage - 1)
       .subscribe((data: WaterConsumptionPage) => {
           this.consumptionPage = data.pageable.pageNumber + 1;
           this.consumptionPageSize = data.pageable.pageSize;
@@ -96,7 +96,8 @@ export class WaterConsumptionComponent implements OnInit {
 
       individualPayments.forEach(individualPayment => {
         // TODO This is stupid
-        let notDbRecords = calculations.filter(item => item.name != individualPayment.name);
+        let notDbRecords
+          = calculations.filter(item => item.name != individualPayment.name);
         individualPayments.push(...notDbRecords);
 
         calculations.forEach(calculated => {
@@ -152,4 +153,5 @@ export class WaterConsumptionComponent implements OnInit {
     const monthDay: Date = new Date(waterEntry.monthReferred);
     return monthDay.getUTCFullYear() + '-' + (monthDay.toLocaleString('default', {month: 'long'}));
   }
+
 }
