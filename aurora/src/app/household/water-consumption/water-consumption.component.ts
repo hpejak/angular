@@ -3,6 +3,7 @@ import {WaterConsumption} from "../common/WaterConsumption";
 import {HouseholdService} from "../household.service";
 import {WaterIndividualPayment} from "../common/WaterIndividualPayment";
 import {WaterConsumptionPage} from "../common/WaterConsumptionPage";
+import {WaterConsumptionService} from "../service/water-consumption.service";
 
 @Component({
   selector: 'app-water-consumption',
@@ -20,7 +21,8 @@ export class WaterConsumptionComponent implements OnInit {
   private individuals: Map<string, string[]>
     = new Map<string, string[]>([["Pejak", ["upstairs"]], ["Teodorovic", ["downstairs", "courtyard", "rest"]]])
 
-  constructor(private householdService: HouseholdService) {
+  constructor(private householdService: HouseholdService,
+              private waterConsumptionService: WaterConsumptionService) {
   }
 
   ngOnInit(): void {
@@ -152,6 +154,11 @@ export class WaterConsumptionComponent implements OnInit {
   getYearAndMonth(waterEntry: WaterConsumption) {
     const monthDay: Date = new Date(waterEntry.monthReferred);
     return monthDay.getUTCFullYear() + '-' + (monthDay.toLocaleString('default', {month: 'long'}));
+  }
+
+  passWaterConsumption(waterConsumption: WaterConsumption){
+    console.debug("passWaterConsumption method in water-consumption component " + JSON.stringify(waterConsumption));
+    this.waterConsumptionService.passWaterConsumption(waterConsumption);
   }
 
 }

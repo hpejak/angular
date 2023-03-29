@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
+import {WaterConsumptionService} from "../service/water-consumption.service";
+import {WaterConsumption} from "../common/WaterConsumption";
 
 @Component({
   selector: 'app-water-consumption-details',
@@ -8,17 +10,31 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class WaterConsumptionDetailsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) {
+  // waterConsumption: WaterConsumption = new WaterConsumption();
+  upstairsConsumption: number = 0;
+
+  constructor(private route: ActivatedRoute,
+              private waterConsumptionService: WaterConsumptionService) {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(() => {
-      this.handleWaterConsumptionDetails();
-    })
+    console.debug("ngOnInt WaterConsumptionDetailsComponent")
+    this.handleWaterConsumptionDetails();
+    //
+    // this.route.paramMap.subscribe(() => {
+    // })
   }
 
 
   private handleWaterConsumptionDetails() {
-
+    console.debug(">> >>>> handleWaterConsumptionDetails");
+    this.waterConsumptionService.waterConsumptionDetails.subscribe(
+      data => {
+        this.upstairsConsumption = data.upstairsConsumption;
+        console.debug(">> >>>> handleWaterConsumptionDetails " + JSON.stringify(data))
+      }
+    );
   }
+
+
 }
