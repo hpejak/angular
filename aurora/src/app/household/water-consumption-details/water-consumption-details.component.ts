@@ -10,8 +10,7 @@ import {WaterConsumption} from "../common/WaterConsumption";
 })
 export class WaterConsumptionDetailsComponent implements OnInit {
 
-  // waterConsumption: WaterConsumption = new WaterConsumption();
-  upstairsConsumption: number = 0;
+  waterConsumption: WaterConsumption | null = null;
 
   constructor(private route: ActivatedRoute,
               private waterConsumptionService: WaterConsumptionService) {
@@ -30,7 +29,7 @@ export class WaterConsumptionDetailsComponent implements OnInit {
     console.debug(">> >>>> handleWaterConsumptionDetails");
     this.waterConsumptionService.waterConsumptionDetails.subscribe(
       data => {
-        this.upstairsConsumption = data.upstairsConsumption;
+        this.waterConsumption = data;
         console.debug(">> >>>> handleWaterConsumptionDetails " + JSON.stringify(data))
       }
     );

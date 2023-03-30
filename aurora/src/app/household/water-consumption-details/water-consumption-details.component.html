@@ -1,2 +1,7 @@
-<p>water-consumption-details works!</p>
-<p>Price is {{upstairsConsumption}}</p>
+<div *ngIf="!waterConsumption">
+  <div class="alert-danger">No DATA</div>
+</div>
+<div *ngIf="waterConsumption">
+  <p>water-consumption-details works!</p>
+  <p>Price is {{waterConsumption.totalDifference}}</p>
+</div>

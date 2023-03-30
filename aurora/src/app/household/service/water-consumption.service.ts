@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {WaterConsumption} from "../common/WaterConsumption";
-import {ReplaySubject, Subject} from "rxjs";
+import {BehaviorSubject, ReplaySubject, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WaterConsumptionService {
 
-  waterConsumptionDetails: Subject<WaterConsumption> = new ReplaySubject<WaterConsumption>();
+  waterConsumptionDetails: Subject<WaterConsumption | null> = new BehaviorSubject<WaterConsumption | null>(null);
 
   constructor() {
   }
