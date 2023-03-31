@@ -43,7 +43,10 @@ export class WaterConsumptionDetailsComponent implements OnInit {
           [Validators.required])
       }),
       consumption: this.formBuilder.group({
-        totalConsumption: new FormControl(this.waterConsumption?.totalConsumption, [Validators.required])
+        totalConsumption: new FormControl(this.waterConsumption?.totalConsumption, [Validators.required]),
+        downstairsConsumption: new FormControl(
+          this.waterConsumption?.downstairsConsumption,
+          [Validators.required])
       })
     });
   }
