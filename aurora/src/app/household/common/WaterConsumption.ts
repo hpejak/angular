@@ -15,7 +15,6 @@ export class WaterConsumption {
     public downstairsDifference: number,
     public courtyardHouseDifference: number,
     public cubicPrice: number,
-    public flatFee: number,
     public calculatedPrice: number,
     public waterBilling: WaterBilling,
     public insertTimestamp: Date

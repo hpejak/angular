@@ -30,8 +30,21 @@ export class WaterConsumptionDetailsComponent implements OnInit {
 
   private populateForm() {
     this.waterConsumptionDetailsFormGroup = this.formBuilder.group({
+      general: this.formBuilder.group({
+        monthReferred: new FormControl(this.waterConsumption?.monthReferred, [Validators.required]),
+        flatFee: new FormControl(this.waterConsumption?.waterBilling?.flatFee, [Validators.required]),
+        cubicPrice: new FormControl(
+          this.waterConsumption?.waterBilling?.cubicPrice,
+          [Validators.required]),
+        currency: new FormControl(
+          this.waterConsumption?.waterBilling?.currency.sign,
+          [Validators.required])
+      }),
       difference: this.formBuilder.group({
         totalDifference: new FormControl(this.waterConsumption?.totalDifference, [Validators.required]),
+        waterConsumptionRest: new FormControl(
+          this.waterConsumption?.waterConsumptionRest,
+          [Validators.required]),
         upstairsDifference: new FormControl(
           this.waterConsumption?.upstairsDifference,
           [Validators.required]),
@@ -46,11 +59,24 @@ export class WaterConsumptionDetailsComponent implements OnInit {
         totalConsumption: new FormControl(this.waterConsumption?.totalConsumption, [Validators.required]),
         downstairsConsumption: new FormControl(
           this.waterConsumption?.downstairsConsumption,
+          [Validators.required]),
+        upstairsConsumption: new FormControl(
+          this.waterConsumption?.upstairsConsumption,
+          [Validators.required]),
+        courtyardHouseConsumption: new FormControl(
+          this.waterConsumption?.courtyardHouseConsumption,
+          [Validators.required]),
+      }),
+      bill: this.formBuilder.group({
+        calculatedCost: new FormControl(
+          this.waterConsumption?.waterBilling?.calculatedCost,
+          [Validators.required]),
+        billPrice: new FormControl(
+          this.waterConsumption?.waterBilling?.billPrice,
           [Validators.required])
       })
     });
   }
-
 
   private handleWaterConsumptionDetails() {
     console.debug(">> >>>> handleWaterConsumptionDetails");
@@ -61,7 +87,6 @@ export class WaterConsumptionDetailsComponent implements OnInit {
       }
     );
   }
-
 
   onSubmit() {
     console.log("Changing params!")

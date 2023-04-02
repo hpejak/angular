@@ -35,6 +35,7 @@ export class WaterConsumptionComponent implements OnInit {
     console.debug(`ConsumptionPage=${this.consumptionPage - 1}`)
     this.householdService.getWaterConsumption(this.consumptionPage - 1)
       .subscribe((data: WaterConsumptionPage) => {
+        console.debug(data)
           this.consumptionPage = data.pageable.pageNumber + 1;
           this.consumptionPageSize = data.pageable.pageSize;
           this.consumptionCollectionSize = data.totalElements;
@@ -77,7 +78,8 @@ export class WaterConsumptionComponent implements OnInit {
   }
 
   private calculateBillPrice(waterEntry: WaterConsumption) {
-    return waterEntry.totalDifference * waterEntry.cubicPrice + waterEntry.flatFee
+    console.log("PROBE :" + waterEntry?.waterBilling?.flatFee);
+    return waterEntry.totalDifference * waterEntry.cubicPrice + waterEntry?.waterBilling?.flatFee
   }
 
   private defineIndividualPayments(waterEntry: WaterConsumption) {
