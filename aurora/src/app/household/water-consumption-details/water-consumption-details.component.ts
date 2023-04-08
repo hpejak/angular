@@ -3,6 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {WaterConsumptionService} from "../service/water-consumption.service";
 import {WaterConsumption} from "../common/WaterConsumption";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {HouseholdService} from "../household.service";
+import {Currency} from "../common/Currency";
 
 @Component({
   selector: 'app-water-consumption-details',
@@ -13,16 +15,18 @@ export class WaterConsumptionDetailsComponent implements OnInit {
 
   waterConsumptionDetailsFormGroup!: FormGroup;
   waterConsumption: WaterConsumption | null = null;
+  currencies!: Currency[];
 
   constructor(private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private waterConsumptionService: WaterConsumptionService) {
+              private waterConsumptionService: WaterConsumptionService,
+              private householdService: HouseholdService ) {
   }
 
   ngOnInit(): void {
     console.debug("ngOnInt WaterConsumptionDetailsComponent")
     this.handleWaterConsumptionDetails();
-
+    this.getCurrencies();
     if (this.waterConsumption) {
       this.populateForm();
     }
@@ -86,6 +90,12 @@ export class WaterConsumptionDetailsComponent implements OnInit {
         console.debug(">> >>>> handleWaterConsumptionDetails " + JSON.stringify(data))
       }
     );
+  }
+
+  private getCurrencies(){
+    this.householdService.getCurrency().subscribe((currencyData: Currency[]) => {
+      this.currencies = currencyData;
+    })
   }
 
   onSubmit() {

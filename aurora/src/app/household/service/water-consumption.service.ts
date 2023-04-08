@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {WaterConsumption} from "../common/WaterConsumption";
-import {BehaviorSubject, ReplaySubject, Subject} from "rxjs";
+import {BehaviorSubject, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'

@@ -21,8 +21,8 @@ export class HouseholdService {
       + '&pageSize=5');
   }
 
-  getCurrency():Observable<Currency>{
-    return this.httpClient.get<Currency>(this.householdApi + 'getCurrency')
+  getCurrency():Observable<Currency[]>{
+    return this.httpClient.get<Currency[]>(this.householdApi + 'getCurrency')
   }
 
   addWaterConsumption() {

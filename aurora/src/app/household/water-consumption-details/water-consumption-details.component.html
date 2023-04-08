@@ -54,7 +54,7 @@
                     <select id="currency"
                            formControlName="currency"
                            class="form-control">
-                      <option></option>
+                      <option *ngFor="let currencyValue of currencies">{{currencyValue.sign}}</option>
                     </select>
                   </div>
 
