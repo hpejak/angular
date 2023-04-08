@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {WaterConsumptionService} from "../service/water-consumption.service";
 import {WaterConsumption} from "../common/WaterConsumption";
@@ -20,16 +20,29 @@ export class WaterConsumptionDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private waterConsumptionService: WaterConsumptionService,
-              private householdService: HouseholdService ) {
+              private householdService: HouseholdService) {
   }
 
   ngOnInit(): void {
     console.debug("ngOnInt WaterConsumptionDetailsComponent")
     this.handleWaterConsumptionDetails();
     this.getCurrencies();
+    let initWaterConsumption = sessionStorage.getItem('waterConsumption')
+    if (initWaterConsumption != null) {
+      this.waterConsumption = JSON.parse(initWaterConsumption);
+      console.log("Water consumption in initWater: " + JSON.stringify(this.waterConsumption))
+    }
+
+    let initCurrencies = sessionStorage.getItem('currencies')
+    if (initCurrencies != null) {
+      this.currencies = JSON.parse(initCurrencies);
+      console.log("Currencies: " + JSON.stringify(this.currencies))
+    }
+
     if (this.waterConsumption) {
       this.populateForm();
     }
+
   }
 
   private populateForm() {
@@ -92,7 +105,14 @@ export class WaterConsumptionDetailsComponent implements OnInit {
     );
   }
 
-  private getCurrencies(){
+  @HostListener('window:beforeunload', ['$event'])
+  saveWaterConsumption() {
+    console.log("BEFORE UNLOAD " + JSON.stringify(this.waterConsumption))
+    sessionStorage.setItem('waterConsumption', JSON.stringify(this.waterConsumption));
+    sessionStorage.setItem('currencies', JSON.stringify(this.currencies));
+  }
+
+  private getCurrencies() {
     this.householdService.getCurrency().subscribe((currencyData: Currency[]) => {
       this.currencies = currencyData;
     })
@@ -101,4 +121,9 @@ export class WaterConsumptionDetailsComponent implements OnInit {
   onSubmit() {
     console.log("Changing params!")
   }
+
+  ngOnDestroy() {
+    sessionStorage.clear()
+  }
+
 }

@@ -1,228 +1,260 @@
-<div class="container-fluid">
+<div class="container-fluid p-5">
   <div *ngIf="!waterConsumption">
     <div class="alert-danger">No DATA</div>
   </div>
 
-  <div *ngIf="waterConsumption">
+  <div id="water-consumption-detail-form" *ngIf="waterConsumption">
     <form [formGroup]="waterConsumptionDetailsFormGroup" (ngSubmit)="onSubmit()">
       <div class="accordion">
-        <div class="accordion-item" id="general-accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-general">
-            <button class="accordion-button"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseGeneral"
-                    aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseGeneral">
-              General
-            </button>
-          </h2>
 
-          <div id="panelsStayOpen-collapseGeneral"
-               class="accordion-collapse collapse show"
-               aria-labelledby="panelsStayOpen-general">
-            <div class="accordion-body">
-              <div id="general" formGroupName="general" class="form-area">
-                <div class="row">
+        <div class="mb-3">
+          <div class="accordion-item" id="general-accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-general">
+              <button class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseGeneral"
+                      aria-expanded="true"
+                      aria-controls="panelsStayOpen-collapseGeneral">
+                General
+              </button>
+            </h2>
 
-                  <div class="col-md-3 col-form-label">
-                    <label for="monthReferred" class="form-label">Month</label>
-                    <input type="date"
-                           id="monthReferred"
-                           formControlName="monthReferred"
-                           class="form-control">
+            <div id="panelsStayOpen-collapseGeneral"
+                 class="accordion-collapse collapse show"
+                 aria-labelledby="panelsStayOpen-general">
+              <div class="accordion-body">
+                <div id="general" formGroupName="general" class="form-area">
+                  <div class="row">
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="monthReferred" class="form-label">Month</label>
+                      <input type="date"
+                             id="monthReferred"
+                             formControlName="monthReferred"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="flatFee" class="form-label">Flat Fee</label>
+                      <input type="text"
+                             id="flatFee"
+                             formControlName="flatFee"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="cubicPrice" class="form-label">Cubic Price</label>
+                      <input type="text"
+                             id="cubicPrice"
+                             formControlName="cubicPrice"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="currency" class="form-label">Currency</label>
+                      <select id="currency"
+                              formControlName="currency"
+                              class="form-control">
+                        <option *ngFor="let currencyValue of currencies">{{currencyValue.sign}}</option>
+                      </select>
+                    </div>
+
                   </div>
+                </div>
+              </div>
+            </div>
 
-                  <div class="col-md-3 col-form-label">
-                    <label for="flatFee" class="form-label">Flat Fee</label>
-                    <input type="text"
-                           id="flatFee"
-                           formControlName="flatFee"
-                           class="form-control">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-consumption">
+              <button class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseConsumption"
+                      aria-expanded="true"
+                      aria-controls="panelsStayOpen-collapseConsumption">
+                Consumption
+              </button>
+            </h2>
+
+            <div id="panelsStayOpen-collapseConsumption"
+                 class="accordion-collapse collapse show"
+                 aria-labelledby="panelsStayOpen-consumption">
+              <div class="accordion-body">
+                <div id="consumption" formGroupName="consumption" class="form-area">
+                  <div class="row">
+                    <div class="col-md-3 col-form-label">
+                      <label for="downstairsConsumption" class="form-label">Downstairs Consumption</label>
+                      <input type="text"
+                             id="downstairsConsumption"
+                             formControlName="downstairsConsumption"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="upstairsConsumption" class="form-label">Upstairs Consumption</label>
+                      <input type="text"
+                             id="upstairsConsumption"
+                             formControlName="upstairsConsumption"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="courtyardHouseConsumption" class="form-label">Courtyard House Consumption</label>
+                      <input type="text"
+                             id="courtyardHouseConsumption"
+                             formControlName="courtyardHouseConsumption"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="totalConsumption" class="form-label">Total Consumption</label>
+                      <input type="text"
+                             id="totalConsumption"
+                             formControlName="totalConsumption"
+                             class="form-control">
+                    </div>
+
                   </div>
+                </div>
+              </div>
+            </div>
 
-                  <div class="col-md-3 col-form-label">
-                    <label for="cubicPrice" class="form-label">Cubic Price</label>
-                    <input type="text"
-                           id="cubicPrice"
-                           formControlName="cubicPrice"
-                           class="form-control">
-                  </div>
+          </div>
+        </div>
 
-                  <div class="col-md-3 col-form-label">
-                    <label for="currency" class="form-label">Currency</label>
-                    <select id="currency"
-                           formControlName="currency"
-                           class="form-control">
-                      <option *ngFor="let currencyValue of currencies">{{currencyValue.sign}}</option>
-                    </select>
+        <div class="mb-3">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-difference">
+              <button class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseDifference"
+                      aria-expanded="true"
+                      aria-controls="panelsStayOpen-collapseDifference">
+                Difference
+              </button>
+            </h2>
+
+            <div id="panelsStayOpen-collapseDifference"
+                 class="accordion-collapse collapse show"
+                 aria-labelledby="panelsStayOpen-difference">
+              <div class="accordion-body">
+
+                <div id="difference" formGroupName="difference" class="form-area">
+                  <div class="row g-3">
+                    <div class="col-md-2 col-form-label">
+                      <label for="upstairsDifference" class="form-label">Upstairs Difference</label>
+                      <input type="text"
+                             id="upstairsDifference"
+                             formControlName="upstairsDifference"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-2 col-form-label">
+                      <label for="downstairsDifference" class="form-label">Downstairs Difference</label>
+                      <input type="text"
+                             id="downstairsDifference"
+                             formControlName="downstairsDifference"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-2 col-form-label">
+                      <label for="courtyardHouseDifference" class="form-label">Courtyard House Difference</label>
+                      <input type="text"
+                             id="courtyardHouseDifference"
+                             formControlName="courtyardHouseDifference"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="waterConsumptionRest" class="form-label">Rest Difference</label>
+                      <input type="text"
+                             id="waterConsumptionRest"
+                             formControlName="waterConsumptionRest"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="totalDifference" class="form-label">Total Difference</label>
+                      <input type="text"
+                             id="totalDifference"
+                             formControlName="totalDifference"
+                             class="form-control">
+                    </div>
                   </div>
 
                 </div>
               </div>
             </div>
           </div>
-
         </div>
+        <div class="mb-3">
+          <div class="accordion-item" id="bill-accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-bill">
+              <button class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseBill"
+                      aria-expanded="true"
+                      aria-controls="panelsStayOpen-collapseBill">
+                Bill
+              </button>
+            </h2>
 
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-consumption">
-            <button class="accordion-button"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseConsumption"
-                    aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseConsumption">
-              Consumption
-            </button>
-          </h2>
+            <div id="panelsStayOpen-collapseBill"
+                 class="accordion-collapse collapse show"
+                 aria-labelledby="panelsStayOpen-bill">
+              <div class="accordion-body">
+                <div id="bill" formGroupName="bill" class="form-area">
+                  <div class="row">
 
-          <div id="panelsStayOpen-collapseConsumption"
-               class="accordion-collapse collapse show"
-               aria-labelledby="panelsStayOpen-consumption">
-            <div class="accordion-body">
-              <div id="consumption" formGroupName="consumption" class="form-area">
-                <div class="row">
-                  <div class="col-md-3 col-form-label">
-                    <label for="downstairsConsumption" class="form-label">Downstairs Consumption</label>
-                    <input type="text"
-                           id="downstairsConsumption"
-                           formControlName="downstairsConsumption"
-                           class="form-control">
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="calculatedCost" class="form-label">Calculated Cost</label>
+                      <input type="text"
+                             id="calculatedCost"
+                             formControlName="calculatedCost"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-3 col-form-label">
+                      <label for="billPrice" class="form-label">Bill Price</label>
+                      <input type="text"
+                             id="billPrice"
+                             formControlName="billPrice"
+                             class="form-control">
+                    </div>
+
+                    <div class="col-md-3 col-form-label"
+                         *ngFor="let waterPayment of waterConsumption.waterBilling.waterIndividualPayments">
+                      <button class="btn btn-primary"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              attr.data-bs-target="#{{waterPayment.name}}"
+                              aria-expanded="false"
+                              attr.aria-controls="{{waterPayment.name}}">{{waterPayment.name}}</button>
+                    </div>
+
                   </div>
-
-                  <div class="col-md-3 col-form-label">
-                    <label for="upstairsConsumption" class="form-label">Upstairs Consumption</label>
-                    <input type="text"
-                           id="upstairsConsumption"
-                           formControlName="upstairsConsumption"
-                           class="form-control">
-                  </div>
-
-                  <div class="col-md-3 col-form-label">
-                    <label for="courtyardHouseConsumption" class="form-label">Courtyard House Consumption</label>
-                    <input type="text"
-                           id="courtyardHouseConsumption"
-                           formControlName="courtyardHouseConsumption"
-                           class="form-control">
-                  </div>
-
-                  <div class="col-md-3 col-form-label">
-                    <label for="totalConsumption" class="form-label">Total Consumption</label>
-                    <input type="text"
-                           id="totalConsumption"
-                           formControlName="totalConsumption"
-                           class="form-control">
-                  </div>
-
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-            <button class="accordion-button"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseOne"
-                    aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseOne">
-              Difference
-            </button>
-          </h2>
-
-          <div id="panelsStayOpen-collapseOne"
-               class="accordion-collapse collapse show"
-               aria-labelledby="panelsStayOpen-headingOne">
-            <div class="accordion-body">
-
-              <div id="difference" formGroupName="difference" class="form-area">
-                <div class="row g-3">
-                  <div class="col-md-2 col-form-label">
-                    <label for="upstairsDifference" class="form-label">Upstairs Difference</label>
-                    <input type="text"
-                           id="upstairsDifference"
-                           formControlName="upstairsDifference"
-                           class="form-control">
-                  </div>
-
-                  <div class="col-md-2 col-form-label">
-                    <label for="downstairsDifference" class="form-label">Downstairs Difference</label>
-                    <input type="text"
-                           id="downstairsDifference"
-                           formControlName="downstairsDifference"
-                           class="form-control">
-                  </div>
-
-                  <div class="col-md-2 col-form-label">
-                    <label for="courtyardHouseDifference" class="form-label">Courtyard House Difference</label>
-                    <input type="text"
-                           id="courtyardHouseDifference"
-                           formControlName="courtyardHouseDifference"
-                           class="form-control">
-                  </div>
-
-                  <div class="col-md-3 col-form-label">
-                    <label for="waterConsumptionRest" class="form-label">Rest Difference</label>
-                    <input type="text"
-                           id="waterConsumptionRest"
-                           formControlName="waterConsumptionRest"
-                           class="form-control">
-                  </div>
-
-                  <div class="col-md-3 col-form-label">
-                    <label for="totalDifference" class="form-label">Total Difference</label>
-                    <input type="text"
-                           id="totalDifference"
-                           formControlName="totalDifference"
-                           class="form-control">
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-        <div class="accordion-item" id="bill-accordion-item">
-          <h2 class="accordion-header" id="panelsStayOpen-bill">
-            <button class="accordion-button"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseBill"
-                    aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseBill">
-              Bill
-            </button>
-          </h2>
-
-          <div id="panelsStayOpen-collapseBill"
-               class="accordion-collapse collapse show"
-               aria-labelledby="panelsStayOpen-bill">
-            <div class="accordion-body">
-              <div id="bill" formGroupName="bill" class="form-area">
-                <div class="row">
-
-
-                  <div class="col-md-3 col-form-label">
-                    <label for="calculatedCost" class="form-label">Calculated Cost</label>
-                    <input type="text"
-                           id="calculatedCost"
-                           formControlName="calculatedCost"
-                           class="form-control">
-                  </div>
-
-                  <div class="col-md-3 col-form-label">
-                    <label for="billPrice" class="form-label">Bill Price</label>
-                    <input type="text"
-                           id="billPrice"
-                           formControlName="billPrice"
-                           class="form-control">
-                  </div>
-
+        <div class="mb-3">
+          <div class="row">
+            <div class="col"
+                 *ngFor="let waterPayment of waterConsumption.waterBilling.waterIndividualPayments">
+              <div class="collapse multi-collapse"
+                   id="{{waterPayment.name}}">
+                <div class="card card-body">
+                  {{waterPayment.calculatedPrice}}
                 </div>
               </div>
             </div>
@@ -231,10 +263,11 @@
       </div>
       <!--        Submit-->
       <div class="text-center">
-        <button type="submit" class="btn btn-info">Save Params</button>
+        <button type="submit" class="btn btn-outline-primary">Save Params</button>
       </div>
 
     </form>
+
   </div>
 </div>
 
